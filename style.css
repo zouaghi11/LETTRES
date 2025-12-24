@@ -6,11 +6,11 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: url('sunflower.jpeg') no-repeat center center fixed;
-  background-size: cover;
+  background: #f2ddc7; /* reverted */
   font-family: 'Reenie Beanie', cursive;
 }
 
+/* Mobile-only lock */
 @media (min-width: 768px) {
   body::before {
     content: "📱 Mobile only!";
@@ -45,6 +45,10 @@ h1 {
   max-width: 75%;
   animation: sway3D 6s ease-in-out infinite alternate;
   transform-origin: bottom center;
+
+  /* Safari prefixes */
+  -webkit-transform-origin: bottom center;
+  -webkit-animation: sway3D 6s ease-in-out infinite alternate;
 }
 
 @keyframes sway3D {
@@ -53,6 +57,13 @@ h1 {
   50%  { transform: rotateY(-1deg) rotateX(2deg) scale(1.02); }
   75%  { transform: rotateY(1deg) rotateX(-1deg) scale(1); }
   100% { transform: rotateY(-2deg) rotateX(-2deg) scale(0.98); }
+}
+@-webkit-keyframes sway3D {
+  0%   { -webkit-transform: rotateY(-2deg) rotateX(-2deg) scale(0.98); }
+  25%  { -webkit-transform: rotateY(2deg) rotateX(1deg) scale(1); }
+  50%  { -webkit-transform: rotateY(-1deg) rotateX(2deg) scale(1.02); }
+  75%  { -webkit-transform: rotateY(1deg) rotateX(-1deg) scale(1); }
+  100% { -webkit-transform: rotateY(-2deg) rotateX(-2deg) scale(0.98); }
 }
 
 .message-wrapper {
@@ -97,8 +108,9 @@ h1 {
   font-size: 14px;
 }
 
-.fade { animation: fadeIn 0.8s ease; }
+.fade { animation: fadeIn 0.8s ease; -webkit-animation: fadeIn 0.8s ease; }
 @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+@-webkit-keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
 .countdown {
   font-size: 16px;
