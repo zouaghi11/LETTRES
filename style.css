@@ -1,4 +1,4 @@
-* { box-sizing: border-box; margin:0; padding:0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   min-height: 100vh;
@@ -11,20 +11,26 @@ body {
   position: relative;
 }
 
-/* Subtle background pattern overlay */
+/* subtle background pattern */
 body::before {
   content: "";
   position: absolute;
-  top:0; left:0; width:100%; height:100%;
+  top:0; left:0; right:0; bottom:0;
   background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
-  z-index: 0;
 }
 
-/* Mobile-only lock */
 @media (min-width: 768px) {
-  body::before { content:"Mobile only!"; display:block; text-align:center; font-size:30px; color:#000; margin-top:40vh; }
+  body::before { display: none; }
+  body::after {
+    content: "Mobile only!";
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+    margin-top: 40vh;
+  }
   .card { display: none; }
 }
 
@@ -33,74 +39,87 @@ body::before {
   max-width: 480px;
   padding: 26px 22px 20px;
   text-align: center;
-  background: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.6);
   border-radius: 12px;
   position: relative;
   z-index: 1;
 }
 
-/* Header */
 h1 { font-size: 32px; margin-bottom: 26px; }
 
-/* Flower animation */
 .flower-container { perspective: 1000px; margin-bottom: 32px; }
+
 .flower {
-  width: 240px; max-width: 75%;
-  transform-origin: center bottom;
-  animation: swayFlower 6s ease-in-out infinite alternate;
+  width: 240px;
+  max-width: 75%;
+  animation: sway 4s ease-in-out infinite alternate;
+  transform-origin: bottom center;
 }
 
-/* Realistic sway + scale + rotationY */
-@keyframes swayFlower {
-  0% { transform: rotate(-2deg) rotateY(1deg) scale(0.98); }
-  25% { transform: rotate(2deg) rotateY(-1deg) scale(1.02); }
-  50% { transform: rotate(-1deg) rotateY(0deg) scale(1.01); }
-  75% { transform: rotate(1deg) rotateY(1deg) scale(0.99); }
-  100% { transform: rotate(-2deg) rotateY(0deg) scale(1); }
+/* Realistic flower sway with scale & 3D rotation */
+@keyframes sway {
+  0% { transform: rotate(-3deg) scale(0.98) rotateY(-2deg); }
+  25% { transform: rotate(2deg) scale(1.01) rotateY(1deg); }
+  50% { transform: rotate(-2deg) scale(0.99) rotateY(0deg); }
+  75% { transform: rotate(1deg) scale(1.02) rotateY(-1deg); }
+  100% { transform: rotate(-3deg) scale(0.98) rotateY(2deg); }
 }
 
-/* Lines */
-.line { height: 1.5px; background: #000; opacity: 0.3; margin: 12px 0; }
+.message-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 50px;
+  position: relative;
+}
 
-/* Message wrapper */
-.message-wrapper { display: flex; align-items: center; justify-content: center; gap: 24px; min-height: 50px; }
+.message {
+  font-size: 24px;
+  min-width: 180px;
+  text-align: center;
+  position: relative;
+}
 
-/* Message */
-.message { font-size: 24px; min-width: 180px; text-align:center; }
-
-/* Arrow buttons */
-.arrow.curved {
-  background: none;
-  border: none;
+.arrow {
+  background: rgba(255,255,255,0.7);
+  border-radius: 50%;
   width: 60px;
   height: 60px;
-  border-radius: 50%;
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s;
+  flex-shrink: 0;
 }
-.arrow.curved.left::before, .arrow.curved.right::before {
-  content:'';
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-top: 3px solid black;
-  border-right: 3px solid black;
+
+.arrow svg { width: 30px; height: 30px; }
+
+.arrow:active { transform: scale(1.2) rotate(-5deg); }
+
+.arrow:disabled { opacity: 0.2; cursor: default; }
+
+.divider { height: 2px; background: #000; opacity: 0.3; margin: 12px 0; }
+
+.bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 0 5px;
 }
-.arrow.curved.left::before { transform: rotate(-45deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
-.arrow.curved.right::before { transform: rotate(135deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
 
-/* Touch-friendly animation */
-.arrow.curved:active { transform: scale(1.2) rotate(10deg); }
-.arrow:disabled { opacity:0.3; cursor: default; }
-
-/* Bottom section */
-.bottom { display: flex; justify-content: space-between; font-size: 14px; margin-top: 8px; }
-
-/* Fade animation */
 .fade { animation: fadeIn 0.8s ease; }
 @keyframes fadeIn { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
 
-/* Countdown */
-.countdown { font-size: 18px; margin: 10px 0; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%,100%{transform: scale(1);} 50%{transform: scale(1.05);} }
+.countdown {
+  font-size: 18px;
+  margin: 10px 0;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
