@@ -39,7 +39,6 @@ nextBtn.onclick = () => { if(current<unlocked){current++;updateUI();}};
 
 // Date
 dateEl.textContent = new Date().toLocaleDateString();
-
 updateUI();
 
 // Countdown Timer
