@@ -9,11 +9,22 @@ body {
   background: url('sunflower.jpeg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Reenie Beanie', cursive;
+  position: relative;
+}
+
+/* Subtle background pattern overlay */
+body::before {
+  content: "";
+  position: absolute;
+  top:0; left:0; right:0; bottom:0;
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
 }
 
 /* Mobile-only lock */
 @media (min-width: 768px) {
-  body::before {
+  body::after {
     content: "Mobile only!";
     display: block;
     text-align: center;
@@ -31,6 +42,8 @@ body {
   text-align: center;
   background: rgba(255,255,255,0.6);
   border-radius: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 h1 {
@@ -38,28 +51,39 @@ h1 {
   margin-bottom: 26px;
 }
 
+/* Flower animation */
 .flower-container {
   perspective: 1000px;
   margin-bottom: 32px;
 }
-
 .flower {
   width: 240px;
   max-width: 75%;
-  animation: sway 6s ease-in-out infinite alternate;
+  animation: flowerSway 6s ease-in-out infinite;
+  transform-origin: center bottom;
 }
 
-@keyframes sway {
-  0% { transform: rotate(-2deg); }
-  50% { transform: rotate(2deg); }
-  100% { transform: rotate(-2deg); }
+@keyframes flowerSway {
+  0% { transform: rotate(-2deg) scale(1) rotateY(0deg); }
+  25% { transform: rotate(3deg) scale(1.02) rotateY(1deg); }
+  50% { transform: rotate(-3deg) scale(0.98) rotateY(-1deg); }
+  75% { transform: rotate(2deg) scale(1.01) rotateY(0.5deg); }
+  100% { transform: rotate(-2deg) scale(1) rotateY(0deg); }
 }
 
+/* Lines separator */
+.line-separator {
+  height: 1.5px;
+  background: rgba(0,0,0,0.5);
+  margin: 15px 0;
+}
+
+/* Messages and arrows */
 .message-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 20px;
   min-height: 40px;
 }
 
@@ -69,28 +93,52 @@ h1 {
   text-align: center;
 }
 
+/* Arrows touch-friendly */
 .arrow.curved {
   background: none;
   border: none;
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   position: relative;
   border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.2s;
 }
+.arrow.curved:active {
+  transform: scale(0.85) rotate(5deg);
+}
+
 .arrow.curved.left::before, .arrow.curved.right::before {
   content: '';
   position: absolute;
-  width: 15px;
-  height: 15px;
-  border-top: 3px solid black;
-  border-right: 3px solid black;
+  width: 20px;
+  height: 20px;
+  border-top: 4px solid black;
+  border-right: 4px solid black;
 }
-.arrow.curved.left::before { transform: rotate(-45deg); top:50%; left:50%; margin:-8px 0 0 -8px; }
-.arrow.curved.right::before { transform: rotate(135deg); top:50%; left:50%; margin:-8px 0 0 -8px; }
+.arrow.curved.left::before { transform: rotate(-45deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
+.arrow.curved.right::before { transform: rotate(135deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
 .arrow:disabled { opacity: 0.2; cursor: default; }
-.divider { height: 2px; background: #000; opacity: 0.6; margin: 20px 0; }
+
+/* Bottom section */
 .bottom { display: flex; justify-content: space-between; font-size: 14px; }
-.fade { animation: fadeIn 0.8s ease; }
-@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-.countdown { font-size: 16px; margin: 10px 0; }
+
+/* Message fade + slide */
+.fade { 
+  animation: fadeSlide 0.8s ease; 
+}
+@keyframes fadeSlide {
+  0% { opacity:0; transform: translateY(15px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+
+/* Countdown */
+.countdown {
+  font-size: 18px;
+  margin: 10px 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
