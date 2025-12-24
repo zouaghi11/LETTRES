@@ -8,15 +8,12 @@ const messages = [
 ];
 
 const START_KEY = "start_date";
-const DAY = 24 * 60 * 60 * 1000;
+const DAY = 24*60*60*1000;
 
 let startDate = localStorage.getItem(START_KEY);
-if (!startDate) {
-  startDate = Date.now();
-  localStorage.setItem(START_KEY, startDate);
-}
+if(!startDate){ startDate = Date.now(); localStorage.setItem(START_KEY, startDate); }
 
-let unlocked = Math.floor((Date.now() - startDate) / DAY);
+let unlocked = Math.floor((Date.now() - startDate)/DAY);
 let current = Math.min(unlocked, messages.length - 1);
 
 const msgEl = document.getElementById("message");
@@ -26,31 +23,31 @@ const prevBtn = document.getElementById("prev");
 const nextBtn = document.getElementById("next");
 const countdownEl = document.getElementById("countdown");
 
-function updateUI() {
+function updateUI(){
   msgEl.classList.remove("fade"); void msgEl.offsetWidth; msgEl.classList.add("fade");
   msgEl.textContent = messages[current];
-  counterEl.textContent = `${current + 1} / ${Math.min(unlocked+1, messages.length)}`;
-  prevBtn.disabled = current === 0;
-  nextBtn.disabled = current >= unlocked;
+  counterEl.textContent = `${current+1} / ${Math.min(unlocked+1, messages.length)}`;
+  prevBtn.disabled = current===0;
+  nextBtn.disabled = current>=unlocked;
 }
 
-prevBtn.onclick = () => { if(current>0){current--;updateUI();}};
-nextBtn.onclick = () => { if(current<unlocked){current++;updateUI();}};
+prevBtn.onclick = ()=>{ if(current>0){current--; updateUI();} };
+nextBtn.onclick = ()=>{ if(current<unlocked){current++; updateUI();} };
 
 // Date
 dateEl.textContent = new Date().toLocaleDateString();
 updateUI();
 
-// Countdown Timer
+// Countdown
 function updateCountdown(){
   let now = Date.now();
   let nextUnlock = parseInt(startDate) + (unlocked+1)*DAY;
   let diff = nextUnlock - now;
-  if(diff <= 0) diff = 0;
-  let h = Math.floor(diff/3600000);
-  let m = Math.floor((diff%3600000)/60000);
-  let s = Math.floor((diff%60000)/1000);
+  if(diff<0) diff=0;
+  let h=Math.floor(diff/3600000);
+  let m=Math.floor((diff%3600000)/60000);
+  let s=Math.floor((diff%60000)/1000);
   countdownEl.textContent = `Next message in ${h}h ${m}m ${s}s`;
 }
-setInterval(updateCountdown, 1000);
+setInterval(updateCountdown,1000);
 updateCountdown();
