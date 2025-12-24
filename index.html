@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>For Tamtoumt &lt;3</title>
-<link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Tamtoumt &lt;3</title>
+
+  <!-- Handwritten font -->
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="card">
-<h1>FOR TAMTOUMT &lt;3</h1>
+  <div class="card">
+    <h1>FOR TAMTOUMT &lt;3</h1>
 
+    <img src="flower.jpeg" alt="flower" class="flower" />
 
-<img src="sunflower.png" alt="sunflower" class="flower" />
+    <div class="message-wrapper">
+      <button id="prev" class="arrow">❮</button>
+      <div id="message" class="message fade"></div>
+      <button id="next" class="arrow">❯</button>
+    </div>
 
+    <div class="divider"></div>
 
-<div id="message" class="message"></div>
+    <div class="bottom">
+      <span id="date"></span>
+      <span id="counter"></span>
+    </div>
+  </div>
 
-
-<div class="divider"></div>
-
-
-<div class="bottom">
-<span id="date"></span>
-<span id="counter"></span>
-</div>
-</div>
-
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
