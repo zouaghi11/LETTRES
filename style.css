@@ -1,62 +1,77 @@
-@font-face {
-font-family: "Hand";
-src: local("Comic Sans MS");
-}
-
-
-* {
-box-sizing: border-box;
-}
-
+* { box-sizing: border-box; }
 
 body {
-margin: 0;
-min-height: 100vh;
-display: flex;
-justify-content: center;
-align-items: center;
-background: #f2ddc7;
-font-family: "Hand", cursive;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f2ddc7;
+  font-family: 'Patrick Hand', cursive;
 }
-
 
 .card {
-width: 100%;
-max-width: 420px;
-padding: 24px 20px 18px;
-text-align: center;
+  width: 100%;
+  max-width: 480px;
+  padding: 26px 22px 20px;
+  text-align: center;
 }
-
 
 h1 {
-font-size: 24px;
-margin-bottom: 24px;
+  font-size: 26px;
+  margin-bottom: 26px;
 }
-
 
 .flower {
-width: 220px;
-max-width: 70%;
-margin: 0 auto 30px;
+  width: 240px;
+  max-width: 75%;
+  margin-bottom: 32px;
 }
 
+.message-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 40px;
+}
 
 .message {
-font-size: 20px;
-margin-bottom: 24px;
+  font-size: 22px;
+  min-width: 180px;
 }
 
+.arrow {
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.arrow:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
 
 .divider {
-height: 2px;
-background: #000;
-opacity: 0.6;
-margin: 18px 0;
+  height: 2px;
+  background: #000;
+  opacity: 0.6;
+  margin: 20px 0;
 }
 
-
 .bottom {
-display: flex;
-justify-content: space-between;
-font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.fade {
+  animation: fadeIn 0.8s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
