@@ -7,7 +7,20 @@ body {
   justify-content: center;
   align-items: center;
   background: #f2ddc7;
-  font-family: 'Patrick Hand', cursive;
+  font-family: 'Reenie Beanie', cursive;
+}
+
+/* Mobile-only lock */
+@media (min-width: 768px) {
+  body::before {
+    content: "Mobile only!";
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    color: #000;
+    margin-top: 40vh;
+  }
+  .card { display: none; }
 }
 
 .card {
@@ -18,41 +31,74 @@ body {
 }
 
 h1 {
-  font-size: 26px;
+  font-size: 32px;
   margin-bottom: 26px;
+}
+
+.flower-container {
+  perspective: 1000px;
+  margin-bottom: 32px;
 }
 
 .flower {
   width: 240px;
   max-width: 75%;
-  margin-bottom: 32px;
+  animation: sway 6s ease-in-out infinite alternate;
+}
+
+@keyframes sway {
+  0% { transform: rotate(-2deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
 }
 
 .message-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 16px;
   min-height: 40px;
 }
 
 .message {
-  font-size: 22px;
+  font-size: 24px;
   min-width: 180px;
+  text-align: center;
 }
 
-.arrow {
+.arrow.curved {
   background: none;
   border: none;
-  font-size: 26px;
-  cursor: pointer;
-  opacity: 0.6;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+.arrow.curved.left::before {
+  content: '';
+  position: absolute;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(135deg);
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
+}
+.arrow.curved.right::before {
+  content: '';
+  position: absolute;
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 10px;
+  transform: rotate(-45deg);
+  top: 50%;
+  left: 50%;
+  transform-origin: center;
 }
 
-.arrow:disabled {
-  opacity: 0.2;
-  cursor: default;
-}
+.arrow:disabled { opacity: 0.2; cursor: default; }
 
 .divider {
   height: 2px;
@@ -67,11 +113,10 @@ h1 {
   font-size: 14px;
 }
 
-.fade {
-  animation: fadeIn 0.8s ease;
-}
+.fade { animation: fadeIn 0.8s ease; }
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.countdown {
+  font-size: 16px;
+  margin: 10px 0;
 }
