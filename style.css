@@ -1,7 +1,6 @@
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
 body {
-  margin: 0;
   min-height: 100vh;
   display: flex;
   justify-content: center;
@@ -16,22 +15,16 @@ body {
 body::before {
   content: "";
   position: absolute;
-  top:0; left:0; right:0; bottom:0;
+  top:0; left:0; width:100%; height:100%;
   background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
   background-size: 20px 20px;
   pointer-events: none;
+  z-index: 0;
 }
 
 /* Mobile-only lock */
 @media (min-width: 768px) {
-  body::after {
-    content: "Mobile only!";
-    display: block;
-    text-align: center;
-    font-size: 30px;
-    color: #000;
-    margin-top: 40vh;
-  }
+  body::before { content:"Mobile only!"; display:block; text-align:center; font-size:30px; color:#000; margin-top:40vh; }
   .card { display: none; }
 }
 
@@ -40,105 +33,74 @@ body::before {
   max-width: 480px;
   padding: 26px 22px 20px;
   text-align: center;
-  background: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.65);
   border-radius: 12px;
   position: relative;
   z-index: 1;
 }
 
-h1 {
-  font-size: 32px;
-  margin-bottom: 26px;
-}
+/* Header */
+h1 { font-size: 32px; margin-bottom: 26px; }
 
 /* Flower animation */
-.flower-container {
-  perspective: 1000px;
-  margin-bottom: 32px;
-}
+.flower-container { perspective: 1000px; margin-bottom: 32px; }
 .flower {
-  width: 240px;
-  max-width: 75%;
-  animation: flowerSway 6s ease-in-out infinite;
+  width: 240px; max-width: 75%;
   transform-origin: center bottom;
+  animation: swayFlower 6s ease-in-out infinite alternate;
 }
 
-@keyframes flowerSway {
-  0% { transform: rotate(-2deg) scale(1) rotateY(0deg); }
-  25% { transform: rotate(3deg) scale(1.02) rotateY(1deg); }
-  50% { transform: rotate(-3deg) scale(0.98) rotateY(-1deg); }
-  75% { transform: rotate(2deg) scale(1.01) rotateY(0.5deg); }
-  100% { transform: rotate(-2deg) scale(1) rotateY(0deg); }
+/* Realistic sway + scale + rotationY */
+@keyframes swayFlower {
+  0% { transform: rotate(-2deg) rotateY(1deg) scale(0.98); }
+  25% { transform: rotate(2deg) rotateY(-1deg) scale(1.02); }
+  50% { transform: rotate(-1deg) rotateY(0deg) scale(1.01); }
+  75% { transform: rotate(1deg) rotateY(1deg) scale(0.99); }
+  100% { transform: rotate(-2deg) rotateY(0deg) scale(1); }
 }
 
-/* Lines separator */
-.line-separator {
-  height: 1.5px;
-  background: rgba(0,0,0,0.5);
-  margin: 15px 0;
-}
+/* Lines */
+.line { height: 1.5px; background: #000; opacity: 0.3; margin: 12px 0; }
 
-/* Messages and arrows */
-.message-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  min-height: 40px;
-}
+/* Message wrapper */
+.message-wrapper { display: flex; align-items: center; justify-content: center; gap: 24px; min-height: 50px; }
 
-.message {
-  font-size: 24px;
-  min-width: 180px;
-  text-align: center;
-}
+/* Message */
+.message { font-size: 24px; min-width: 180px; text-align:center; }
 
-/* Arrows touch-friendly */
+/* Arrow buttons */
 .arrow.curved {
   background: none;
   border: none;
   width: 60px;
   height: 60px;
-  position: relative;
   border-radius: 50%;
+  position: relative;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
-.arrow.curved:active {
-  transform: scale(0.85) rotate(5deg);
-}
-
 .arrow.curved.left::before, .arrow.curved.right::before {
-  content: '';
+  content:'';
   position: absolute;
   width: 20px;
   height: 20px;
-  border-top: 4px solid black;
-  border-right: 4px solid black;
+  border-top: 3px solid black;
+  border-right: 3px solid black;
 }
 .arrow.curved.left::before { transform: rotate(-45deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
 .arrow.curved.right::before { transform: rotate(135deg); top:50%; left:50%; margin:-10px 0 0 -10px; }
-.arrow:disabled { opacity: 0.2; cursor: default; }
+
+/* Touch-friendly animation */
+.arrow.curved:active { transform: scale(1.2) rotate(10deg); }
+.arrow:disabled { opacity:0.3; cursor: default; }
 
 /* Bottom section */
-.bottom { display: flex; justify-content: space-between; font-size: 14px; }
+.bottom { display: flex; justify-content: space-between; font-size: 14px; margin-top: 8px; }
 
-/* Message fade + slide */
-.fade { 
-  animation: fadeSlide 0.8s ease; 
-}
-@keyframes fadeSlide {
-  0% { opacity:0; transform: translateY(15px); }
-  100% { opacity:1; transform: translateY(0); }
-}
+/* Fade animation */
+.fade { animation: fadeIn 0.8s ease; }
+@keyframes fadeIn { from {opacity:0; transform: translateY(10px);} to {opacity:1; transform: translateY(0);} }
 
 /* Countdown */
-.countdown {
-  font-size: 18px;
-  margin: 10px 0;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-}
+.countdown { font-size: 18px; margin: 10px 0; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{transform: scale(1);} 50%{transform: scale(1.05);} }
