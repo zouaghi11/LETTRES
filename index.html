@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Notes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Courier+Prime&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Daily Notes</h1>
+            <div class="user-id">FOR USER123</div>
+        </div>
+
+        <div class="note-container">
+            <div class="arrow left-arrow" id="prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </div>
+
+            <div class="note-card" id="note-card">
+                <div class="note-content" id="note-text">
+                    <!-- Note content will be loaded here -->
+                </div>
+                
+                <div class="note-date" id="note-date">
+                    <!-- Date will be loaded here -->
+                </div>
+
+                <div class="favorite-star" id="favorite-btn">
+                    <i class="far fa-star"></i>
+                </div>
+            </div>
+
+            <div class="arrow right-arrow" id="next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+        </div>
+
+        <div class="timer-container">
+            <div class="timer-label">New note in</div>
+            <div class="timer" id="timer">
+                24 : 00 : 00
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-text">
+                <p><i class="fas fa-info-circle"></i> Notes automatically unlock every 24 hours</p>
+                <p><i class="fas fa-heart"></i> Double-click a note to favorite it</p>
+                <p><i class="fas fa-arrows-alt-h"></i> Click arrows to navigate between notes</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="note-counter">
+                <span id="current-note">1</span> / <span id="total-notes">6</span>
+            </div>
+            <div class="site-url">dailynotes.github.io</div>
+        </div>
+    </div>
+
+    <div class="setup-modal" id="setup-modal">
+        <div class="modal-content">
+            <h2><i class="fas fa-cog"></i> Setup Your Notes</h2>
+            <div class="form-group">
+                <label for="user-id">Your ID:</label>
+                <input type="text" id="setup-user-id" placeholder="Enter your name or ID">
+            </div>
+            
+            <div class="form-group">
+                <label>Your 6 Daily Notes:</label>
+                <div class="notes-inputs">
+                    <textarea id="note1" placeholder="Note for Day 1"></textarea>
+                    <textarea id="note2" placeholder="Note for Day 2"></textarea>
+                    <textarea id="note3" placeholder="Note for Day 3"></textarea>
+                    <textarea id="note4" placeholder="Note for Day 4"></textarea>
+                    <textarea id="note5" placeholder="Note for Day 5"></textarea>
+                    <textarea id="note6" placeholder="Note for Day 6"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+
+            <div class="modal-buttons">
+                <button id="save-setup" class="btn-primary">
+                    <i class="fas fa-save"></i> Save & Start
+                </button>
+                <button id="load-default" class="btn-secondary">
+                    <i class="fas fa-magic"></i> Use Default Messages
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
